@@ -1,0 +1,159 @@
+﻿@using EntityLayer.Concrete
+@model List<Ticket>
+@{
+    ViewBag.Title = "Title";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <table class="table table-hover">
+            <tr>
+                <th></th>
+                <th class="form-group">
+                    <select class="form-control" id="StatusTitleFormControlSelect">
+
+                        <option selected>-</option>
+                        @for (int i = 0; i < ViewBag.Status.Count; i++)
+                        {
+                            if (Request.QueryString["stv"] == ViewBag.Status[i].StatusID.ToString())
+                            {
+                                <option value="@ViewBag.Status[i].StatusID" selected>@ViewBag.Status[i].StatusTitle</option>
+                            }
+                            else
+                            {
+                                <option value="@ViewBag.Status[i].StatusID">@ViewBag.Status[i].StatusTitle</option>
+                            }
+                        }
+                    </select>
+                </th>
+                <th class="form-group">
+                    <select class="form-control" id="TypeTitleFormControlSelect">
+                        <option selected>-</option>
+                        @for (int i = 0; i < ViewBag.Type.Count; i++)
+                        {
+                            if (Request.QueryString["ttv"] == ViewBag.Type[i].TicketTypeID.ToString())
+                            {
+                                <option value="@ViewBag.Type[i].TicketTypeID" selected>@ViewBag.Type[i].TicketTitle</option>
+                            }
+                            else
+                            {
+                                <option value="@ViewBag.Type[i].TicketTypeID">@ViewBag.Type[i].TicketTitle</option>
+                            }
+                        }
+                    </select>
+                </th>
+                <th class="form-group">
+                    <select class="form-control" id="SituationFormControlSelect">
+                        @if (Request.QueryString["sv"] == "-")
+                        {
+                            <option selected>-</option>
+                        }
+                        else
+                        {
+                            <option>-</option>
+                        }
+                        @if (Request.QueryString["sv"] == "Open")
+                        {
+                            <option selected>Open</option>
+                        }
+                        else
+                        {
+                            <option>Open</option>
+                        }
+                        @if (Request.QueryString["sv"] == "Closed")
+                        {
+                            <option selected>Closed</option>
+                        }
+                        else
+                        {
+                            <option>Closed</option>
+                        }
+                    </select>
+                </th>
+                <th></th>
+                <th>
+                    <button type="button" class="btn btn-light" onclick="search()">Search</button>
+                </th>
+            </tr>
+            <tr style="background-color:#a1a1a1">
+                <th>#</th>
+                <th>Status</th>
+                <th>Title</th>
+                <th>Situation</th>
+                <th>User</th>
+                <th>Ticket</th>
+            </tr>
+
+            @{
+                int status = 0, type = 0, situation = 0;
+                int.TryParse(Request.QueryString["stv"], out status);
+                int.TryParse(Request.QueryString["ttv"], out type);
+                switch (Request.QueryString["sv"])
+                {
+                    case "Open": situation = 1; break;
+                    case "Close": situation = 2; break;
+                    default:
+                        situation = 0;
+                        break;
+                }
+
+                foreach (var item in Model)
+                {
+                    if ((status == 0 || status == item.TicketStatusID)
+                        && (type == 0 || type == item.TicketTypeID)
+                        && (situation == 0 ||
+                        (situation == 1 && item.TicketClosed_at == null) || (situation == 2 && item.TicketClosed_at != null))
+                        )
+                    {
+                        <tr>
+                            <td>@item.TicketID</td>
+                            <td>@item.TicketStatus.StatusTitle</td>
+                            <td>@item.TicketType.TicketTitle</td>
+                            @if (item.TicketClosed_at == null)
+                            {
+                                <td>Open</td>
+                            }
+                            else
+                            {
+                                <td>Closed</td>
+                            }
+                            <td>@item.User.Username</td>
+
+                            <td><a href="/Ticket/ShowTicket/@item.TicketID" type="button" class="btn btn-info">Info</a></td>
+                        </tr>
+                    }
+                }
+            }
+
+
+        </table>
+    </div>
+
+
+    <script>
+        var st = document.getElementById("StatusTitleFormControlSelect");
+        var tt = document.getElementById("TypeTitleFormControlSelect");
+        var s = document.getElementById("SituationFormControlSelect");
+        function search() {
+            var link = "/Ticket/Index?"
+            var stv = st.value;
+            var ttv = tt.value;
+            var sv = s.value;
+            if (stv != "-")
+                link = link + "stv=" + stv + "&";
+            if (ttv != "-")
+                link = link + "ttv=" + ttv + "&";
+            if (sv != "-")
+                link = link + "sv=" + sv + "&";
+            window.location.href = link;
+        }
+    </script>
+</body>
+</html>

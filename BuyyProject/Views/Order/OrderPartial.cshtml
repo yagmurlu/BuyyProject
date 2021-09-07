@@ -1,0 +1,63 @@
+﻿@using EntityLayer.Concrete
+@model Order
+@{
+    ViewBag.Title = "OrderPartial";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<h3 style="margin-left:40%;color:crimson">Siparişler</h3>
+<table class="table table-hover" style="background-color:lightsalmon">
+
+    <tr style="background-color:crimson;color:white">
+        <th>Sipariş Id</th>
+        @*<th>Açıklama</th>*@
+        <th>Sipariş Numarası</th>
+        <th>Kullanıcı ID-Adı</th>
+        <th>Kullanıcı Adı-Soyadı</th>
+        <th>Oluşturulma Tarihi</th>
+        <th>Son Güncelleme</th>
+        <th>Konum</th>
+        <th>Adres</th>
+        <th>Toplam Tutar</th>
+    </tr>
+
+
+
+    <tr>
+        <td>@Model.OrderID</td>
+        <td>@Model.Number</td>
+        <td>@Model.UserId - @Model.User.Username</td>
+        <td></td>
+        <td>@Model.CreatedAt</td>
+        <td>@Model.UpdatedAt</td>
+        <td>@Model.Address.City/@Model.Address.Country</td>
+        <td>@Model.Address.Description</td>
+
+        <td>@Model.TotalOrderPrice</td>
+
+    </tr>
+
+
+</table>
+<br />
+<h3 style="margin-left:40%;color:darkgoldenrod">Siparişe Alınan Ürünler</h3>
+<table class="table table-striped" style="background-color:khaki">
+
+    <tr style="background-color:goldenrod;color:white">
+        <th>Ürün Id</th>
+        <th>Ürün Adı</th>
+    </tr>
+
+
+    @foreach (var _product in Model.OrderProducts)
+    {
+
+        <tr>
+            <td>@_product.OrderId</td>
+            <td>@_product.Product.Name</td>
+
+        </tr>
+    }
+
+</table>

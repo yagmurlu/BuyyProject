@@ -1,0 +1,28 @@
+﻿@model EntityLayer.Concrete.Stock
+@{
+    ViewBag.Title = "AddStock";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h2 style="margin-left:40%;color:blueviolet">Yeni Stok Ekleme</h2>
+@using (Html.BeginForm("AddStock", "Stock", FormMethod.Post))
+{
+    <div class="form-group">
+
+
+        @Html.Label("Toplam Stock:")
+        @Html.TextBoxFor(x => x.StockQuantity, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.StockQuantity, "", new { @class = "text-danger" })
+        @Html.Label("Ürün Adı:")
+        @Html.DropDownListFor(x => x.ProductId, (List<SelectListItem>)ViewBag.vlc,
+    new { @class = "form-control" })
+
+        <br /><br />
+
+
+
+        @*@Html.TextBoxFor(x => x.CategoryStatus)
+            @Html.ValidationMessageFor(x => x.CategoryStatus, "", new { @class = "text-danger" })*@
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}

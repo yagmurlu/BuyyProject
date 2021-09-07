@@ -1,0 +1,34 @@
+﻿@model EntityLayer.Concrete.Category
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h2 style="margin-left:40%;color:coral">Yeni Kategori Ekleme</h2>
+@using (Html.BeginForm("AddCategory", "AdminCategory", FormMethod.Post))
+{
+    <div class="form-group">
+
+        @Html.Label("Kategori Adı:")
+        @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.CategoryName, "", new { @class = "text-danger" })
+        <br /><br />
+
+        @*@Html.TextBoxFor(x => x.CategoryStatus)*@
+        @*<input type="radio" name="favori" value="True">Aç<br>
+            <input type="radio" name="favori" value="False">Kapat<br>*@
+
+
+        <form method="post" action="/kontrol/onay">
+            @Html.Label("Kategori Durumu:")
+            <br />
+            <input type="radio" name="CategoryStatus" value="True" checked>Aç<br>
+            <input type="radio" name="CategoryStatus" value="False">Kapat<br>
+            <br>
+        </form>
+
+        @*@Html.TextBoxFor(x => x.CategoryStatus)
+            @Html.ValidationMessageFor(x => x.CategoryStatus, "", new { @class = "text-danger" })*@
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}

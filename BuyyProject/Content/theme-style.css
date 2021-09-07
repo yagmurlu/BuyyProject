@@ -1,0 +1,153 @@
+.w-100 {
+    height: 220px;
+}
+
+
+.navbar-light .navbar-nav .nav-link {
+    
+    color:black;
+}
+
+#yorum-yap{
+    margin-left: -50px;
+}
+
+#product-price{
+    font-size: 28px;
+    color:black;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+.list-group-item.active {
+    background-color: #559ea2;
+    border-color: #fefeff;
+}
+
+
+#product-price {
+    font-size: 20px;
+    color:black;
+}
+.btn-primary{
+    color:#fff;
+    background-color: #878686;
+    border-color: #878686;
+    
+}
+.irs--flat .irs-bar, .irs--flat .irs-handle>i:first-child, .irs--flat .irs-from, .irs--flat .irs-to, .irs--flat .irs-single  {
+    background-color: #559ea2 !important;
+}
+.irs--flat .irs-from:before, .irs--flat .irs-to:before, .irs--flat .irs-single:before {
+    border-top-color: #559ea2 !important;
+}
+
+.btn-1 {
+    border: none;
+    color: white;
+    background-color: #4CAF50;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 2px solid #4CAF50;
+}
+
+
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.form-items {
+  margin: 40px 0px;
+}
+.form-items:first-child {
+  margin-top: 0;
+}
+.form-items:last-child {
+  margin-bottom: 10px;
+}
+.form-items .form-title {
+  margin-bottom: 12px;
+}
+.form-items .form-item {
+  padding: 2px 0;
+  color: #353333;
+}
+.form-items .form-item input[type=checkbox],
+.form-items .form-item input[type=radio] {
+  display: none;
+}
+.form-items .form-item input[type=checkbox] + label,
+.form-items .form-item input[type=radio] + label {
+  position: relative;
+  padding: 4px 10px;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+    font-size: 15px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background-color: rgba(228, 228, 228, 0.1);
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: center left 10px;
+  transition: 0.1s;
+}
+.form-items .form-item input[type=checkbox]:checked + label,
+.form-items .form-item input[type=radio]:checked + label {
+  padding-left: 25px;
+  border-color: #00000016;
+  color: white;
+  background-color: #559ea2ff;
+  /*background-image: url("https://image.flaticon.com/icons/svg/1632/1632596.svg");*/
+}
+
+.author {
+  display: block;
+  margin: 30px 0 15px 0;
+  text-align: center;
+  font-size: 13px;
+}
+
+
+
+
+
+
+
+

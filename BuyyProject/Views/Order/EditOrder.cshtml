@@ -1,0 +1,37 @@
+﻿@model EntityLayer.Concrete.Order
+
+@{
+    ViewBag.Title = "EditOrder";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>SİPARİŞ GÜNCELLEME SAYFASI</h2>
+
+@using (Html.BeginForm("EditOrder", "Order", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Sipariş ID:")
+        @Html.TextBoxFor(x => x.OrderID, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.OrderID, "", new { @class = "text-danger" })
+        @Html.Label(" Sipariş Numarası:")
+        @Html.TextBoxFor(x => x.Number, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Number, "", new { @class = "text-danger" })
+        @Html.Label("User ID:")
+        @Html.TextBoxFor(x => x.UserId, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.UserId, "", new { @class = "text-danger" })
+        @Html.Label("Oluşturulma Tarihi:")
+        @Html.TextBoxFor(x => x.CreatedAt, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.CreatedAt, "", new { @class = "text-danger" })
+
+        @Html.Label(" Son Güncelleme Tarihi:")
+        @Html.TextBoxFor(x => x.UpdatedAt, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.UpdatedAt, "", new { @class = "text-danger" })
+        @Html.Label("Toplam Sipariş Tutarı:")
+        @Html.TextBoxFor(x => x.TotalOrderPrice, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.TotalOrderPrice, "", new { @class = "text-danger" })
+        <br /><br />
+        
+        <button class="btn btn-success">Güncelle</button>
+    </div>
+}

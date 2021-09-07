@@ -1,0 +1,48 @@
+﻿@model EntityLayer.Concrete.Product
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h2 style="margin-left:40%;color:blueviolet">Yeni Ürün Ekleme</h2>
+@using (Html.BeginForm("AddProduct", "Product", FormMethod.Post))
+{
+    <div class="form-group">
+
+        @Html.Label("Ürün Adı:")
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+        @Html.Label("Açıklama:")
+        @Html.TextBoxFor(x => x.ProductDescription, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.ProductDescription, "", new { @class = "text-danger" })
+        @Html.Label("Fiyat:")
+        @Html.TextBoxFor(x => x.ProductPrice, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.ProductPrice, "", new { @class = "text-danger" })
+        @*@Html.Label("Durum:")
+            @Html.TextBoxFor(x => x.ProductStatus, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.ProductStatus, "", new { @class = "text-danger" })*@
+        @Html.Label("Kategori Adı:")
+        @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.vlc,
+    new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.CategoryID, "", new { @class = "text-danger" })
+
+        <br /><br />
+
+        @*@Html.TextBoxFor(x => x.CategoryStatus)*@
+        @*<input type="radio" name="favori" value="True">Aç<br>
+            <input type="radio" name="favori" value="False">Kapat<br>*@
+
+
+        <form>
+            @Html.Label("Kategori Durumu:")
+            <br />
+            <input type="radio" name="ProductStatus" value="True">Aç(Varsayılan)<br>
+            <input type="radio" name="ProductStatus" value="False">Kapat<br>
+            <br>
+        </form>
+
+        @*@Html.TextBoxFor(x => x.CategoryStatus)
+            @Html.ValidationMessageFor(x => x.CategoryStatus, "", new { @class = "text-danger" })*@
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}

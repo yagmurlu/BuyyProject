@@ -1,0 +1,46 @@
+﻿@using EntityLayer.Concrete
+@model List<OrderProduct>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<h3 style="margin-left:40%;color:coral">Siparişler</h3>
+<table class="table table-hover" style="background-color:lightgoldenrodyellow">
+
+    <tr style="background-color:coral">
+        <th>#</th>
+        <th>Sipariş Numarası</th>
+        <th>Ürün Id - Adı</th>
+        <th>Kullanıcı Id/ Ad-Soyad</th>
+        <th>Oluşturulma Tarihi</th>
+        <th>Son Güncelleme</th>
+        <th>Toplam Tutar</th>
+        <th>Adres</th>
+        <th>Ödeme Türü</th>
+        @*<th>Sipariş Ayrıntıları</th>*@
+        <th>Güncelle</th>
+        <th>Sil</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>@item.Id</td>
+            <td>@item.</td>
+            <td>@item.Product.ProductID @item.Product.Name</td>
+            <td>@item.Profile.name @item.Profile.surname</td>
+            <td>@item.Order.CreatedAt</td>
+            <td>@item.Order.UpdatedAt</td>
+            <td>@item.Order.TotalOrderPrice</td>
+            <td>@item.OrderProducts@item.Address.Country</td>
+            <td>@item.Payment.PaymnetType</td>*@
+
+
+
+            @*<td>@Html.Action("OrderPartial", "Order")</td>*@
+            <td><a href="/Order/EditOrder/@item.OrderId" class="btn btn-warning">Güncelle</a></td>
+            <td><a href="/Order/EditDelete/@item.OrderId" class="btn btn-danger">Sil</a></td>
+        </tr>
+    }
+</table>

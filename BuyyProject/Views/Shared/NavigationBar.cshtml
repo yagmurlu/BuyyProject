@@ -1,0 +1,163 @@
+﻿
+
+
+
+<nav id="Navbar" class="navbar navbar-expand-lg navbar-light bg-light"
+     style="background-color: white !important; padding: 10px 0px 0px 0px; box-shadow: #ffffff 0px -1px inset;">
+    <div class="container-fluid" style="box-shadow: #ffffff 0px -1px inset; margin: 0px 20px 0px 20px; ">
+
+        <!-- Left Icon -->
+        <a class="navbar-brand" href="#!">
+            <img src="~/Content/img/buyy_png.png" height="80" alt="mdb logo"> <!--/theme/-->
+        </a>
+
+        @*Icon*@
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse navbar-nav-scroll" style="--bs-scroll-height: 250px;" id="navbarScroll">
+
+            @*Left Side*@
+            <ul class="navbar-nav me-auto my-2 my-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">AnaSayfa <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Kadın</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Erkek</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Çocuk Ve Bebek</a>
+                </li>
+                <li><hr class="dropdown-divider" style="margin-right: 3vw;"></li>
+                <!--
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Link
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                    -->
+            </ul>
+
+            @*Right Side*@
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="#!" class="nav-link navbar-link-2 waves-effect">
+                    <img src="~/Content/img/bagicon.png" height="20px">
+                    <span class="badge badge-pill red" style="color: #000">0</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#!" class="nav-link waves-effect">
+                    Sepet
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#!" class="nav-link waves-effect">
+                    Bize Ulaşın
+                </a>
+            </li>
+            <li><hr class="dropdown-divider" style="line-height:10px; opacity: 0;"></li>
+            @if (Session["User"] != null)
+            {
+                <li class="nav-item">
+                    <a href="#!" class="nav-link waves-effect">
+                        @(((EntityLayer.Concrete.User)Session["User"]).Username)
+                    </a>
+                </li>
+
+
+                <li class="nav-item" style="padding-right: 15px;">
+                    <a href="/User/Logout" class="nav-link waves-effect">
+                        Çıkış
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item" style="padding-right: 15px;">
+                    <a href="/User/Login" class="nav-link waves-effect">
+                        Giriş Yap
+                    </a>
+                </li>
+
+                <li class="nav-item pl-2 mb-2 mb-md-0">
+                    <a href="/User/Register" type="button"
+                       class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Kayıt Ol</a>
+                </li>
+
+            }
+
+            <li><hr class="dropdown-divider" style="height: 10px; opacity: 0; padding-right:10px;"></li>
+        </ul>
+            <!-- Search Bar
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>-->
+
+        </div>
+
+        <!-- Middle -->
+        <!--<ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">AnaSayfa <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Kadın</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Erkek</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Çocuk Ve Bebek</a>
+            </li>
+        </ul>-->
+        <!-- Right -->
+        <!--<div class="collapse navbar-collapse ml-auto">
+            <div class="navbar-nav float-right">
+                <ul class="navbar-nav" style="right: 0px;">
+                    <li class="nav-item">
+                        <a href="#!" class="nav-link navbar-link-2 waves-effect">
+                            <img src="~/Content/img/bagicon.png" height="20px">
+                            <span class="badge badge-pill red">0</span>
+
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#!" class="nav-link waves-effect">
+                            Sepet
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#!" class="nav-link waves-effect">
+                            Bize Ulaşın
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#!" class="nav-link waves-effect">
+                            Giriş Yap
+                        </a>
+                    </li>
+                    <li class="nav-item pl-2 mb-2 mb-md-0">
+                        <a href="#!" type="button"
+                           class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Kayıt Ol</a>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+
+
+    </div>
+    <!-- Links -->
+
+</nav>

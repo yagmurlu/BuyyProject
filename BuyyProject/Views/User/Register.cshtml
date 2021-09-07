@@ -1,0 +1,33 @@
+﻿@model EntityLayer.Concrete.UserDTO
+@{
+    ViewBag.Title = "Index";
+    Layout = "/Views/Shared/_SimplePage.cshtml";
+}
+<div class="container-fluid m-0 p-0 h-100">
+    <div class="row m-0 p-0 w-100 h-100">
+        <div class="col-12 col-lg-6 h-100 p-0">
+            <div class="row justify-content-center align-items-center w-100 h-100">
+                <div class="col-12 text-center">
+                    <h1>Register Now!</h1>
+                    <h4>Get great deals ama Türkçe.</h4>
+                    <hr class="w-25 d-inline-block"/>
+                    <form action="/User/Register" method="post">
+                        <input type="text" name="Username" id="username" placeholder="Username" class="form-control m-auto w-75" value="" />
+                        <input type="email" name="Email" id="email" placeholder="Email" class="form-control m-auto mt-2 w-75" value="" />
+                        <input type="text" name="Name" id="name" placeholder="Name" class="form-control m-auto mt-2 w-75" value="" />
+                        <input type="text" name="Surname" id="surname" placeholder="Surname" class="form-control m-auto mt-2 w-75" value="" />
+                        <input type="password" name="Password" id="password" placeholder="Password" class="form-control m-auto mt-2 w-75" value="" />
+                        <input type="password" name="PasswordVerification" id="passwordverification" placeholder="Password" class="form-control m-auto mt-2 w-75" value="" />
+                        <input type="submit" class="btn btn-lg btn-primary mt-4" name="Submit" value="Register" />
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-none d-lg-block col-lg-6 h-100 p-0">
+            <div class="position-relative w-100 h-100" style="background-image: url('/Content/img/foto1.jpg'); background-size: cover; background-position: center center;">
+
+            </div>
+        </div>
+    </div>
+</div>                                                       

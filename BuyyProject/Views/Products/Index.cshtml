@@ -1,0 +1,484 @@
+﻿@using EntityLayer.Concrete
+@model List<Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@section styles{
+    @Styles.Render("~/Content/ionRangeSliderCss")
+
+    <style>
+        .floating-button {
+            position: fixed;
+            line-height: 40px;
+            border-radius: 50px;
+            text-align: center;
+            width: 15vw;
+            bottom: 20px;
+            left: 2vw;
+        }
+
+        .filter-card {
+            padding: 0 calc(var(--bs-gutter-x) * .5) 0 calc(var(--bs-gutter-x) * .5);
+            margin: 0 0 calc(var(--bs-gutter-x) * .5) 0;
+        }
+
+        .filter-scroll {
+            padding: calc(var(--bs-gutter-x) * .5) 0 calc(var(--bs-gutter-x) * 5.5) 0;
+            margin: 0px;
+            overflow-y: visible;
+            overflow-x: hidden;
+        }
+
+        #filterMenu {
+            width: 20%;
+            height: 100vh;
+            overflow: hidden scroll;
+            padding: 0 0 0 calc(var(--bs-gutter-x) * .5);
+        }
+    </style>
+}
+
+<div class="row" style="height: 100%; width: 100%; padding: calc(var(--bs-gutter-x) * .5) 0 0 0;">
+
+    <!-- Side Menu:  -->
+    <div id="filterMenu" class="container-fluid float-left">
+        <div class="col-12 mr-0 float-left"
+             style="z-index: 100; padding: 0 calc(var(--bs-gutter-x) * .5) 0 calc(var(--bs-gutter-x) * .5);">
+
+
+            <!-- Scrollable area: -->
+            <div id="sideMenu" class="container-fluid filter-scroll">
+
+                <!-- Category Radio Buttons: --> <!-- TODO: Get Categories from database -->
+                <div class="card container-fluid filter-card">
+                    <form>
+                        <div class="form-items">
+                            <h6 class="form-title" style="padding-top: 15px; text-align: center;">Kategoriler</h6>
+                            @{
+                                for (int i = 0; i < ViewBag.Categories.Count; i++)
+                                {
+                                    <div class="form-item">
+                                        <input type="radio" id="radio-@i" name="category" @(i == 0 ? "checked" : "")> <!-- todo: If Selected Index -->
+                                        <label for="radio-@i" style="margin: 0">@ViewBag.Categories[i].CategoryName</label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Price Picker --> <!-- TODO: Get Max/Min values for products in the category -->
+                <div class="card container fluid filter-card">
+                    <div class="card-body container-fluid justify-content-center align-items-center">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="container-fluid" style="padding-top: 10px; text-align: center">
+                                <h6>Fiyat Aralığı</h6>
+                            </div>
+                            <div class="container-fluid" style="padding-top: 0px; padding-bottom: 5px;">
+                                <input type="text" id="priceInput" class="js-range-slider" style="caret-color: green" />
+                            </div>
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-5" style="padding: 0;">
+                                    <div class="input-group" style="padding: 0px; padding-bottom: 15px;">
+                                        <input type="number" class="form-control container-fluid" placeholder="Min"
+                                               id="minPrice" name="price_min" value="0"
+                                               style="padding-left: 5px; padding-right: 5px; font-size: 12px;" min="0">
+
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                  style="font-size: 12px; padding: 5px 5px 5px 5px; height: 100%; margin: 0; border-left: 0px; ">₺</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2" style="padding: 0px;  padding-bottom: 15px;">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <span class="splitter">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-5" style="padding: 0;">
+                                    <div class="input-group" style="padding: 0px;  padding-bottom: 15px;">
+                                        <input type="number" class="form-control container-fluid" placeholder="Max"
+                                               id="maxPrice" name="price_max" value="0"
+                                               style="padding-left: 5px; padding-right: 5px;  font-size: 12px;" min="5">
+
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                  style="font-size: 12px; padding: 5px 5px 5px 5px; height: 100%; border-left: 0px;">₺</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Color Checkboxes: --> <!-- TODO: Get Possible Color Choices from database (Properties) -->
+                <div class="card container fluid filter-card">
+                    <form>
+                        <div class="form-items">
+
+                            <h6 class="form-title" style="padding-top: 15px; text-align: center;">Renkler</h6>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-1">
+                                <label for="checkbox-1" style="margin: 0">Bordo</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-2">
+                                <label for="checkbox-2" style="margin: 0">Gri</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-3">
+                                <label for="checkbox-3" style="margin: 0">Kahverengi</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-4">
+                                <label for="checkbox-4" style="margin: 0">Karma</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-5">
+                                <label for="checkbox-5" style="margin: 0">Kırmızı</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-6">
+                                <label for="checkbox-6" style="margin: 0">Lacivert</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-7">
+                                <label for="checkbox-7" style="margin: 0">Mavi</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-8">
+                                <label for="checkbox-8" style="margin: 0">Yeşil</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-9">
+                                <label for="checkbox-9" style="margin: 0">Sarı</label>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Size Checkboxes: --> <!-- TODO: Get Possible Sizes -->
+                <div class="card container fluid filter-card">
+                    <form>
+                        <div class="form-items">
+
+                            <h6 class="form-title" style="padding-top: 15px; text-align: center;">Renkler</h6>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-a">
+                                <label for="checkbox-a" style="margin: 0">XXS</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-b">
+                                <label for="checkbox-b" style="margin: 0">XS</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-c">
+                                <label for="checkbox-c" style="margin: 0">S</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-d">
+                                <label for="checkbox-d" style="margin: 0">M</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-e">
+                                <label for="checkbox-e" style="margin: 0">L</label>
+                            </div>
+                            <div class="form-item">
+                                <input type="checkbox" id="checkbox-f">
+                                <label for="checkbox-f" style="margin: 0">XL</label>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+            <!--Floating Buttons -->
+            <div class="floating-button"
+                 style="background-color: #FFF; height: 100px;">
+            </div>
+            <a href="#" class="floating-button"
+               style="box-shadow: 0px 0px 0px 2px #559ea2;
+               background-color: #FFF; color: #000;">
+                <span style="font-size: 20px;">Sıfırla</span>
+            </a>
+            @using (Html.BeginForm("ChangeCategory", "Products", FormMethod.Get))
+            {
+                <a class="floating-button"
+                   style="bottom: 80px; box-shadow: 0px 0px 0px 2px #559ea2;
+               background-color: #559ea2; color: #FFF;">
+                    <span style="font-size: 20px;">Uygula</span>
+                </a>
+            }
+
+        </div>
+    </div>
+
+    <!-- Page Area --> <!-- TODO : Configure bootstrap Grid. -->
+    <div class="container-fluid float-right" style="width: 80%; right: 0; margin-right: 0;">
+
+        <!-- Urunler Kismi -->
+        <div class="row" style="padding-left: calc(var(--bs-gutter-x) * .5)">
+            <div class="col-12 float-right" style="padding-left: 0;">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        Product item = Model.ElementAt(i);
+                        <div class="col">
+                            <div class="card h-100">
+                                <div id="carouselH_@i" class="carousel slide carousel-fade" data-bs-interval="false">
+                                    <div class="carousel-inner">
+                                        @for (int j = 0; j < item.Images.Count; j++)
+                                        {
+                                            Image image = item.Images.ElementAt(j);
+
+                                            <div class="carousel-item @(j == 0 ? "active" : "")">
+                                                <img src="@image.Url" class="d-block"
+                                                     style="width: 100%"
+                                                     alt="@image.Alternate">
+                                            </div>
+                                        }
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselH_@i" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselH_@i" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                                <div class="card-body d-flex align-items-start flex-column">
+                                    <p class="card-text mb-auto">@item.Name</p>
+                                    <h4>@Math.Floor(item.ProductPrice).ToString(),<span style="font-size: 0.8em;">@Math.Floor(item.ProductPrice % 1 * 100)</span> ₺</h4>
+                                    <a href="#" class="btn btn-primary" style="bottom: 0px !important;">Ürünü İncele</a> <!-- TODO Href to Product Detail -->
+                                </div>
+                                @*<p class="card-text"><small class="text-muted" style="text-align: end;">0</small></p>*@
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="container-fluid p-0 m-0" style="clear: both">
+            <footer class="text-center text-lg-start bg-light text-muted">
+                <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+                    <div class="me-5 d-none d-lg-block">
+                        <span>Get connected with us on social networks:</span>
+                    </div>
+                    <div>
+                        <a href="" class="me-4 text-reset">
+                            <i class="fa fa-facebook-f"></i>
+                        </a>
+                        <a href="" class="me-4 text-reset">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="" class="me-4 text-reset">
+                            <i class="fa fa-google"></i>
+                        </a>
+                        <a href="" class="me-4 text-reset">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="" class="me-4 text-reset">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <a href="" class="me-4 text-reset">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="">
+                    <div class="container text-center text-md-start mt-5">
+                        <div class="row mt-3">
+                            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    <i class="fas fa-gem me-3"></i>VİZYON VE MİSYON
+                                </h6>
+                                <p>
+                                    Modaya yön veren tekstil markalarının çözüm ortağı olarak, girişimci, yenilikçi, saygın
+                                    kimliği ile tanınan sektöründe öncü ve özgün bir dünya markası olmak.
+                                </p>
+                            </div>
+
+                            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    YARDIM
+                                </h6>
+                                <p>
+                                    <a href="#!" class="text-reset">İADE PROSEDÜRÜ</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">SİPARİŞ TAKİP</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-reset">KİŞİSEL VERİLERİN KORUNMASI</a>
+                                </p>
+                            </div>
+
+
+                            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                                <h6 class="text-uppercase fw-bold mb-4">
+                                    İLETİŞİM
+                                </h6>
+                                <p>
+                                    <i class="fa fa-envelope me-3"></i>
+                                    info@buyy.com
+                                </p>
+                                <p><i class="fa fa-phone me-3"></i> + 01 234 567 88</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                    © 2021 :
+                    <a class="text-reset fw-bold" href="#">BUYY.COM TÜM HAKLARI SAKLIDIR...</a>
+                </div>
+            </footer>
+        </div>
+        <!-- Footer -->
+
+    </div>
+
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/ionRangeSlider")
+
+<script>
+
+        //Price Input Script:
+        var minPrice = document.getElementById("minPrice");
+        var maxPrice = document.getElementById("maxPrice");
+        var minVal = 0; // Take from Database
+
+        $("#priceInput").ionRangeSlider({
+            skin: "flat",
+            type: "double",
+            grid: true,
+            min: minVal,
+            max: @ViewBag.MaxPrice,
+            prefix: "₺",
+            step: 5,
+            onChange: function (data) {
+                minPrice.value = data.from;
+                maxPrice.value = data.to;
+            },
+        });
+        let range = $(".js-range-slider").data("ionRangeSlider");
+
+        function priceChange() {
+            let a = parseInt(minPrice.value);
+            let b = parseInt(maxPrice.value);
+
+            if (a < 0) {
+                minPrice.value = 0;
+            }
+            if (b < 0) {
+                maxPrice.value = 0;
+            }
+            if (b > maxVal) {
+                maxPrice.value = @ViewBag.MaxPrice;
+            }
+        }
+
+        function priceChangeEnd(data) {
+            let a = parseInt(minPrice.value);
+            let b = parseInt(maxPrice.value);
+
+            if (a >= 0 && b > 0) // Both numbers are fine.
+            {
+                //console.log("Price Set: " + a +"|"+ b);
+            }
+            else {
+                if (!(a >= 0)) // If "a" is NaN !!
+                {
+                    //console.log("minPrice is NaN, changing to Min");
+                    minPrice.value = 0;
+                }
+                if (!(b > 0)) // If "b" is NaN !!
+                {
+                    //console.log("maxPrice is NaN, changing to Max");
+                    maxPrice.value = @ViewBag.MaxPrice;
+                    b = maxVal;
+                }
+            }
+
+            if (a > b) {
+                if (data.target == minPrice) {
+                    maxPrice.value = minPrice.value;
+                }
+                if (data.target == maxPrice) {
+                    minPrice.value = maxPrice.value;
+                }
+            }
+
+            range.update({
+                from: minPrice.value,
+                to: maxPrice.value,
+            });
+        }
+
+        //Side Menu Script:
+        window.onload = function () { loader(); }
+        var navbar;
+        var filter;
+        var topRel;
+        var defaultHeight = 0;
+        let once = false;
+
+        function changeSize() {
+            let pos = window.scrollY;
+
+            if (pos >= topRel) {
+                if (!once) {
+                    filter.style.position = "fixed";
+                    filter.style.top = "0px";
+                    filter.style.height = "100vh";
+                    filter.style.overflowY = "auto";
+                    //filter.scrollTop = 0;
+                    once = true;
+                }
+            }
+            else {
+                once = false;
+                filter.style.position = "relative";
+                filter.style.top = null;
+                console.log(navbar.style);
+                filter.style.height = window.innerHeight - navbar.height + "px";
+                filter.style.overflowY = null;
+            }
+        }
+
+        function loader() {
+            minPrice.addEventListener("input", priceChange);
+            maxPrice.addEventListener("input", priceChange);
+
+            minPrice.addEventListener("change", priceChangeEnd);
+            maxPrice.addEventListener("change", priceChangeEnd);
+            minPrice.value = 0;
+            maxPrice.value = @ViewBag.MaxPrice
+            minPrice.max = @ViewBag.MaxPrice - 5;
+            maxPrice.max = @ViewBag.MaxPrice;
+
+
+            window.addEventListener('scroll', changeSize);
+            window.addEventListener('resize', changeSize);
+            filter = document.getElementById("filterMenu");
+            navbar = document.getElementById("Navbar");
+            topRel = filter.offsetTop;
+            changeSize();
+        }
+
+</script>
+}
+

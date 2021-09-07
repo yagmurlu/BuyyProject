@@ -1,0 +1,103 @@
+﻿@using EntityLayer.Concrete
+@model Ticket
+
+@{
+    ViewBag.Title = "Ticket";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>ShowTicket</title>
+</head>
+<body>
+    <div class="row" style="height: 100vh;">
+        <div class="container-fluid" style="height: 85vh; padding-top: 3rem; padding-bottom: 3rem; overflow-y: scroll; overflow-x: hidden;"
+             id="upperContainer">
+            @{
+                //TODO user from user manager
+                int? firstSender = 1;
+
+                foreach (var item in Model.Messages)
+                {
+                    if (item.UserID == firstSender)
+                    {
+                        <div class="row justify-content-start" style="padding: 15px 0px 0px 0px;">
+                            <div class="col-6">
+                                <div class="card container-fluid h-100" style="width: 80%; margin-bottom: 0; padding:">
+                                    <div class="card-body" style="padding: 0.75rem 1.25rem 0.5rem 1.25rem;">
+                                        <h6 class="card-title" style="font-size: 18px;">@item.User.Username</h6>
+                                        <p class="card-text" style="margin-bottom: 0rem;">
+                                            @item.MessagesContext
+                                        </p>
+                                        <p class="card-text text-right"><small class="text-muted">@item.MessagesCreated_at</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row justify-content-end" style="padding: 15px 0px 0px 0px;">
+                            <div class="col-6">
+                                <div class="card container-fluid h-100" style="width: 80%; margin-bottom: 0;">
+                                    <div class="card-body" style="padding: 0.75rem 1.25rem 0.5rem 1.25rem;">
+                                        <h6 class="card-title" style="font-size: 18px;">@item.User.Username</h6>
+                                        <p class="card-text" style="margin-bottom: 0rem;">
+                                            @item.MessagesContext
+                                        </p>
+                                        <p class="card-text text-right"><small class="text-muted">@item.MessagesCreated_at</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            }
+        </div>
+        @*<div class="row align-self-end w-100" style="padding: 15px;" id="lowerContainer">
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" placeholder="Default input" style="min-height: 16px;">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary mb-2 w-100">Gonder</button>
+                </div>
+            </div>*@
+
+        <div class="container-fluid">
+            @using (Html.BeginForm("SendMessage", "Ticket", FormMethod.Post))
+            {
+                <div class="row form-group">
+                    <input type="hidden" name="TicketID" value="@Model.TicketID" />
+                    <input type="text" name="MessagesContext" value="" class="form-control col-10" />
+                    <button class="btn btn-success col-2">Kaydet</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+
+        var upper = document.getElementById('upperContainer');
+        var lower = document.getElementById('lowerContainer');
+
+        window.onload = function () {
+            onLoad();
+        }
+
+        function onLoad() {
+            window.addEventListener('resize', onResize());
+            onResize();
+        }
+
+        function onResize() {
+            let height = window.innerHeight;
+            upper.height = height - lower.height;
+        }
+    </script>
+</body>
+</html>

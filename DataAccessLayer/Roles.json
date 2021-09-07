@@ -1,0 +1,39 @@
+{
+  "Permissions": [
+    {
+      "Name": "Manage Tickets",
+      "PermissionName": "app.tickets.manage",
+      "Description": "Manage tickets in the system."
+    },
+    {
+      "Name": "Manage Products",
+      "PermissionName": "app.products.manage",
+      "Description": "Manage products in the application"
+    },
+    {
+      "Name": "Manage Orders",
+      "PermissionName": "app.orders.manage",
+      "Description": "Manage orders in the application"
+    }
+  ],
+  "Roles": [
+    {
+      "Name": "Admin",
+      "RoleName": "app:admin",
+      "Description": "Application admin",
+      "Permissions": [
+        { "PermissionName": "app.products.manage" },
+        { "PermissionName": "app.tickets.manage" },
+        { "PermissionName": "app.orders.manage" }
+      ]
+    },
+    {
+      "Name": "User",
+      "RoleName": "app:user",
+      "Description": "Application user",
+      "Permissions": [
+
+      ]
+    }
+  ]
+}

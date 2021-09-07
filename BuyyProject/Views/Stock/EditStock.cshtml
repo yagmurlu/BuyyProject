@@ -1,0 +1,35 @@
+﻿@model EntityLayer.Concrete.Stock
+@{
+    ViewBag.Title = "EditStock";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<h2 style="margin-left:40%;color:blueviolet">Stock Güncelleme</h2>
+@using (Html.BeginForm("EditStock", "Stock", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.Label("Stock Id:")
+    @Html.TextBoxFor(x => x.StockID, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.StockID, "", new { @class = "text-danger" })
+    @Html.Label("Ürün Adı:")
+    @Html.DropDownListFor(x => x.ProductId, (List<SelectListItem>)ViewBag.vsb,
+new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.ProductId, "", new { @class = "text-danger" })
+
+
+    @Html.Label("Toplam Stock:")
+    @Html.TextBoxFor(x => x.StockQuantity, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.StockQuantity, "", new { @class = "text-danger" })
+
+
+
+    <br /><br />
+
+
+
+    @*@Html.TextBoxFor(x => x.CategoryStatus)
+        @Html.ValidationMessageFor(x => x.CategoryStatus, "", new { @class = "text-danger" })*@
+    <button class="btn btn-success">Güncelle</button>
+</div>
+}
